@@ -1,0 +1,322 @@
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.main-container {
+  overflow: hidden;
+}
+
+.main-container,
+.main-container * {
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+}
+
+.main-container {
+  position: relative;
+  width: 921px;
+  height: 577px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0);
+  overflow: hidden;
+}
+.rectangle {
+  position: relative;
+  width: 461px;
+  height: 575px;
+  margin: 5px 0 0 -10px;
+  background: #1e1f26;
+  z-index: 19;
+}
+.root {
+  position: absolute;
+  height: 577px;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: #f5f5f5;
+  z-index: 1;
+}
+.rectangle-1 {
+  position: absolute;
+  width: 460px;
+  height: 575px;
+  top: 0;
+  left: 461px;
+  background: #ffffff;
+}
+.rectangle-2 {
+  position: relative;
+  width: 40px;
+  height: 38px;
+  margin: 23px 0 0 394px;
+  background: #d9d9d9;
+  z-index: 23;
+  overflow: visible auto;
+}
+.image {
+  position: relative;
+  width: 36px;
+  height: 35px;
+  margin: 3px 0 0 4px;
+  z-index: 16;
+  border-radius: 6px;
+}
+.flex-column-b {
+  position: relative;
+  width: 244px;
+  height: 256px;
+  margin: 107px 0 0 101px;
+  font-size: 0px;
+  z-index: 15;
+  overflow: visible auto;
+}
+.log-in {
+  display: block;
+  position: relative;
+  height: 22px;
+  margin: 0 0 0 15px;
+  color: #424248;
+  font-family: Inter, var(--default-font-family);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 20.574px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 15;
+}
+.account-number {
+  display: block;
+  position: relative;
+  height: 11px;
+  margin: 16px 0 0 14px;
+  color: #707175;
+  font-family: Inter, var(--default-font-family);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 10.892px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 14;
+}
+.text {
+  position: relative;
+  width: 229px;
+  height: 37px;
+  margin: 12px 0 0 10px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 11;
+  overflow: visible auto;
+}
+.rectangle-3 {
+  position: relative;
+  width: 225px;
+  height: 31px;
+  margin: 3px 0 0 2px;
+  background: #ffffff;
+  border: 0.25px solid #000000;
+  z-index: 12;
+  border-radius: 8px;
+}
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  height: 11px;
+  right: 116.75px;
+  bottom: 10.75px;
+  color: #9f9fa0;
+  font-family: Inter, var(--default-font-family);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 10.892px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 13;
+}
+.groups {
+  position: relative;
+  width: 244px;
+  height: 147px;
+  margin: 11px 0 0 0;
+  font-size: 0px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 2;
+  overflow: visible auto;
+}
+.password {
+  display: block;
+  position: relative;
+  height: 10px;
+  margin: 6px 0 0 14px;
+  color: #6f6f74;
+  font-family: Inter, var(--default-font-family);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 10px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 10;
+}
+.text-4 {
+  position: relative;
+  width: 230px;
+  height: 35px;
+  margin: 14px 0 0 10px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 7;
+  overflow: visible auto;
+}
+.rectangle-5 {
+  position: relative;
+  width: 225px;
+  height: 31px;
+  margin: 3px 0 0 2px;
+  background: #ffffff;
+  border: 0.25px solid #000000;
+  z-index: 8;
+  border-radius: 8px;
+}
+.text-6 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 6px;
+  right: 173.75px;
+  bottom: 13.75px;
+  color: #000000;
+  font-family: Inter, var(--default-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 6px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 9;
+}
+.button {
+  position: relative;
+  width: 228px;
+  height: 40px;
+  margin: 10px 0 0 11px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 4;
+  overflow: visible auto;
+}
+.rectangle-button {
+  position: relative;
+  width: 225px;
+  height: 31px;
+  margin: 5px 0 0 2px;
+  cursor: pointer;
+  background: transparent;
+  background: no-repeat center;
+  background-size: cover;
+  border: none;
+  z-index: 5;
+}
+.log-in-7 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  height: 13px;
+  right: 95.75px;
+  bottom: 8.75px;
+  color: #c8c8c8;
+  font-family: Inter, var(--default-font-family);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 10.892px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 6;
+}
+.forgot-password {
+  display: block;
+  position: relative;
+  height: 13px;
+  margin: 8px 0 0 14px;
+  color: #9b9b9c;
+  font-family: Inter, var(--default-font-family);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 10.892px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 3;
+}
+.image-8 {
+  position: absolute;
+  width: 459px;
+  height: 573px;
+  right: 460px;
+  bottom: 2px;
+  background: url(../assets/images/48ded230215b95c0008d97f953c3bdf67eeb4283.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 17;
+}
+.rectangle-9 {
+  position: relative;
+  width: 277px;
+  height: 279px;
+  margin: 70px 0 0 80px;
+  background: #d9d9d9;
+  z-index: 20;
+  border-radius: 12px;
+}
+.groups-a {
+  position: relative;
+  width: 335px;
+  height: 109px;
+  margin: 23px 0 0 51px;
+  font-size: 0px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 18;
+  overflow: visible auto;
+}
+.personal-finance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 203px;
+  height: 45px;
+  margin: 7px 0 0 79px;
+  color: #dcdde2;
+  font-family: Inter, var(--default-font-family);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 22.994px;
+  text-align: center;
+  z-index: 22;
+}
+.all-in-one {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  width: 154px;
+  height: 23px;
+  margin: 15px 0 0 102px;
+  color: #bdbec3;
+  font-family: Inter, var(--default-font-family);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 10.892px;
+  text-align: left;
+  text-overflow: initial;
+  z-index: 21;
+  overflow: hidden;
+}
