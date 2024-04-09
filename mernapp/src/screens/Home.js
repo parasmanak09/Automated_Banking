@@ -70,12 +70,12 @@ export default function Home() {
                                 <blockquote class="blockquote mb-0">
                                     <p>Send Money within a Moment</p>
                                     <div class="chutad-yadav">
-                                        <button type="button" class="btn-desi-nigga btn  " >Large button</button>
-                                        <button type="button" class="btn-desi-nigga btn  " >Large button</button>
-                                        <button type="button" class="btn-desi-nigga btn  " >Large button</button>
-                                        <button type="button" class="btn-desi-nigga btn  " >Large button</button>
-                                        <button type="button" class="btn-desi-nigga btn  " >Large button</button>
-                                        <button type="button" class="btn-desi-nigga btn  " >Large button</button>
+                                        <button type="button" class="btn-desi-nigga btn  " style={{height:"95px"}}>Large button</button>
+                                        <button type="button" class="btn-desi-nigga btn  " style={{height:"95px"}}>Large button</button>
+                                        <button type="button" class="btn-desi-nigga btn  " style={{height:"95px"}}>Large button</button>
+                                        <button type="button" class="btn-desi-nigga btn  " style={{height:"95px"}}>Large button</button>
+                                        <button type="button" class="btn-desi-nigga btn  " style={{height:"95px"}}>Large button</button>
+                                        <button type="button" class="btn-desi-nigga btn  " style={{height:"95px"}}>Large button</button>
                                     </div>
                                 </blockquote>
                             </div>
