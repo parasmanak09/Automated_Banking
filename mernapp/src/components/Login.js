@@ -11,7 +11,7 @@ import {
 export default function Logins() {
     return (
         <div class="body" style={{position:"relative"}}>
-            <div className="section"style={{ position: "absolute", top: "%", left: "%", transform: "translate(-3.2%, -38%)" }} >
+            <div className="section"style={{ position: "absolute", top: "%", left: "%", transform: "translate(-3.2%, -56%)" }} >
                 <div className="container" >
                     <div className="row full-height justify-content-center" >
                         <div className="col-12 text-center align-self-center py-5">
