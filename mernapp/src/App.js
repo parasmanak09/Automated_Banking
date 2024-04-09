@@ -13,6 +13,7 @@ import {
   Routes,
   Route
 } from "react-router-dom"
+import Logins from './screens/Login';
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route exact path="/" element={<Home/>}/>
+          <Route exact path="/" element={<Login/>}/>
+          <Route exact path="/home" element={<Home/>}/>
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path="/Profile" element={<Profile/>}/>
           <Route exact path="/Vault" element={<Vault/>}/>
