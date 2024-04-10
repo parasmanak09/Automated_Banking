@@ -1,0 +1,308 @@
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.main-container {
+  overflow: hidden;
+}
+
+.main-container,
+.main-container * {
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+}
+
+.main-container {
+  position: relative;
+  width: 1135px;
+  height: 725px;
+  margin: 0 auto;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+.image {
+  position: absolute;
+  width: 567px;
+  height: 710px;
+  right: 567px;
+  bottom: 8px;
+  background: url(../assets/images/eac2d9a8c0d38c2c597d2f91843de4092a7c5372.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 16;
+}
+.groups {
+  position: relative;
+  width: 356px;
+  height: 354px;
+  margin: 108px 0 0 109px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 20;
+  overflow: visible auto;
+}
+.image-1 {
+  position: relative;
+  width: 344px;
+  height: 344px;
+  margin: 7px 0 0 4px;
+  background: url(../assets/images/96b5614d2aa076c2ff31be6d7df50954df7d2624.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 21;
+  border-radius: 7px;
+}
+.groups-2 {
+  position: relative;
+  width: 375px;
+  height: 133px;
+  margin: 18px 0 0 99px;
+  font-size: 0px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 17;
+  overflow: visible auto;
+}
+.personal-finance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 252px;
+  height: 57px;
+  margin: 9px 0 0 60px;
+  color: #e5e6ea;
+  font-family: Inter, var(--default-font-family);
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 27.835px;
+  text-align: center;
+  text-overflow: initial;
+  z-index: 19;
+  overflow: hidden;
+}
+.all-in-one {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  width: 192px;
+  height: 29px;
+  margin: 16px 0 0 89px;
+  color: #c0c1c6;
+  font-family: Inter, var(--default-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.523px;
+  text-align: left;
+  z-index: 18;
+}
+.image-3 {
+  position: absolute;
+  width: 570px;
+  height: 710px;
+  right: 1px;
+  bottom: 7px;
+  background: url(../assets/images/02481ade2c152a15165942e1aaff91581e7714d6.png)
+    no-repeat center;
+  background-size: cover;
+}
+.groups-4 {
+  position: relative;
+  width: 570px;
+  height: 507px;
+  margin: 2px 0 0 -1px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1;
+  overflow: visible auto;
+}
+.image-5 {
+  position: relative;
+  width: 43px;
+  height: 44px;
+  margin: 26px 0 0 498px;
+  background: url(../assets/images/16314e1d872ce914d4796aee1ea8b408b442b4bb.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 15;
+}
+.groups-6 {
+  position: relative;
+  width: 298px;
+  height: 317px;
+  margin: 117px 0 0 133px;
+  font-size: 0px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 2;
+  overflow: visible auto;
+}
+.verify-identity {
+  display: block;
+  position: relative;
+  height: 28px;
+  margin: 15px 0 0 14px;
+  color: #3b3c42;
+  font-family: Inter, var(--default-font-family);
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 27.835px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 14;
+}
+.sent-message {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  width: 249px;
+  height: 28px;
+  margin: 25px 0 0 12px;
+  color: #67686d;
+  font-family: Inter, var(--default-font-family);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 13.313px;
+  text-align: left;
+  text-overflow: initial;
+  z-index: 13;
+  overflow: hidden;
+}
+.enter-code {
+  display: block;
+  position: relative;
+  height: 14px;
+  margin: 25px 0 0 15px;
+  color: #616267;
+  font-family: Inter, var(--default-font-family);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 13.313px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 12;
+}
+.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 163px;
+  height: 47px;
+  margin: 20px 0 0 14px;
+  z-index: 10;
+}
+.image-7 {
+  flex-shrink: 0;
+  position: relative;
+  width: 32px;
+  height: 47px;
+  background: url(../assets/images/e18f635bac2705c57b518f7d00ba021f0fa12707.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 10;
+}
+.span-0 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  height: 12px;
+  right: 13px;
+  bottom: 19px;
+  color: #959596;
+  font-family: Inter, var(--default-font-family);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 11;
+}
+.image-8 {
+  flex-shrink: 0;
+  position: relative;
+  width: 32px;
+  height: 47px;
+  background: url(../assets/images/abefddeac522ab232b8b4a89b3814c1ee7019b64.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 9;
+}
+.image-9 {
+  flex-shrink: 0;
+  position: relative;
+  width: 32px;
+  height: 47px;
+  background: url(../assets/images/35f789f10014d96f4389f89d1b313cc7def4c5f5.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 8;
+}
+.image-a {
+  flex-shrink: 0;
+  position: relative;
+  width: 31px;
+  height: 47px;
+  background: url(../assets/images/66d3e60f02c9c055eafca29927a70e5eac9d27f8.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 7;
+}
+.button {
+  position: relative;
+  width: 284px;
+  height: 51px;
+  margin: 20px 0 0 10px;
+  background: rgba(0, 0, 0, 0);
+  z-index: 4;
+  overflow: visible auto;
+}
+.background {
+  position: relative;
+  width: 275px;
+  height: 44px;
+  margin: 5px 0 0 5px;
+  cursor: pointer;
+  background: #030303;
+  border: none;
+  z-index: 5;
+}
+.verify {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  height: 17px;
+  right: 117px;
+  bottom: 14px;
+  color: #cacaca;
+  font-family: Inter, var(--default-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.523px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 6;
+}
+.not-received {
+  display: block;
+  position: relative;
+  height: 16px;
+  margin: 11px 0 0 15px;
+  color: #909091;
+  font-family: Inter, var(--default-font-family);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 13.313px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 3;
+}
