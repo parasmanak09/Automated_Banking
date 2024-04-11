@@ -13,7 +13,7 @@ export default function Navbar() {
             <nav className="main-menu">
                 <ul>
                     <li>
-                        <Link to="#">
+                        <Link to="/home">
                             <i className="fa fa-home nav-icon"></i>
                             <span className="nav-text">Home</span>
                         </Link>

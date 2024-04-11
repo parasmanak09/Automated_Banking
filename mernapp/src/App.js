@@ -7,6 +7,7 @@ import Transactions from './screens/Transactions';
 import Transfer from './screens/Transfer';
 import Vault from './screens/Vault';
 import Notifications from './screens/Notifications';
+import Otp from './screens/Otp';
 
 import {
   BrowserRouter as Router,
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/Transfer" element={<Transfer/>}/>
           <Route exact path="/Notification" element={<Notifications/>}/>
           <Route exact path="/signup" element={<signup/>}/>
+          <Route exact path="/otp" element={<Otp/>}/>
         </Routes>
       </div>
     </Router>
