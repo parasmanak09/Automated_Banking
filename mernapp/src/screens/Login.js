@@ -1,66 +1,75 @@
 import React, { useState } from 'react';
 import '../components/Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../components/Background.js'; // Import JS Background File
-import '../components/Login.css';
-
-import Background from '../components/Background.js';
+import '../components/Login.css'; // Import CSS file
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-    const handleLogin = async (event) => {
-        // Define your login logic here
-        event.preventDefault(); // Prevent the form from submitting
+    const navigate = useNavigate();
+    const [credentials, setCredentials] = useState({ email: "", password: "" });
 
+    const handleLogin = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch("http://localhost:9015/api/login", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            });
+
+            const json = await response.json();
+
+            if (!json.success) {
+                alert("Enter Valid Credentials");
+            } 
+            if (json.success) {
+                alert("success")
+                navigate("/home");
+            }
+
+        } catch (error) {
+            console.error('Error occurred:', error);
+            alert('Sorry, an error occurred. Please try again.');
+        }
     };
 
-    const [Usre, SetUsre] = useState({ name: "", email: "", password: "" });
-
-    async function handleSignup(event) {
+    const handleSignup = async (event) => {
         event.preventDefault();
-      
-        try {
-          const response = await fetch("http://localhost:9015/api/create", {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(Usre)
-          });
-      
-          if (!response.ok) {
-            const text = await response.text(); // Get the response text
-            console.error("Error Response:", text); // Log it
-            const data = await response.json();
-            if(data.message){
-                alert(data.message)
 
+        try {
+            const response = await fetch("http://localhost:9015/api/create", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            });
+
+            if (!response.ok) {
+                const text = await response.text();
+                console.error("Error Response:", text);
+                const data = await response.json();
+                if (data.message) {
+                    alert(data.message);
+                }
+            } else {
+                alert("User Created");
+                setCredentials({ email: "", password: "" });
             }
-        
-            // Try to parse as JSON for structured error data
-            try {
-              
-            } catch (error) {
-              // If still not JSON, display the raw text
-              alert(text);
-            } 
-      
-          } else {
-            alert("User Created");
-             // Reset the input fields
-       SetUsre({ name: "", email: "", password: "" }); 
-          }
         } catch (error) {
-          console.error('Error occurred:', error);
-          alert('Sorry, an error occurred. Please try again.');
+            console.error('Error occurred:', error);
+            alert('Sorry, an error occurred. Please try again.');
         }
-      }
-      
-      
-    
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        SetUsre(prevState => ({
+        setCredentials(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -85,11 +94,11 @@ export default function Login() {
                                                         <h4 className="mb-4 pb-3">Log In</h4>
                                                         <form onSubmit={handleLogin}>
                                                             <div className="form-group">
-                                                                <input type="email" name="logemail" className="form-style" placeholder="Your Email" id="logemail" autoComplete="off" />
+                                                                <input type="email" name="email" className="form-style" value={credentials.email} placeholder="Your Email" id="logemail" autoComplete="off" onChange={handleChange} />
                                                                 <i className="input-icon uil uil-at"></i>
                                                             </div>
                                                             <div className="form-group mt-2">
-                                                                <input type="password" name="logpass" className="form-style" placeholder="Your Password" id="logpass" autoComplete="off" />
+                                                                <input type="password" name="password" className="form-style" value={credentials.password} placeholder="Your Password" id="logpass" autoComplete="off" onChange={handleChange} />
                                                                 <i className="input-icon uil uil-lock-alt"></i>
                                                             </div>
                                                             <button type="submit" className="btn mt-4">Submit</button>
@@ -104,15 +113,15 @@ export default function Login() {
                                                         <h4 className="mb-4 pb-3">Sign Up</h4>
                                                         <form onSubmit={handleSignup}>
                                                             <div className="form-group">
-                                                                <input type="text" name="name" className="form-style" value={Usre.name} placeholder="Your Full Name" id="logname" autoComplete="off" onChange={handleChange} />
+                                                                <input type="text" name="name" className="form-style" value={credentials.name} placeholder="Your Full Name" id="logname" autoComplete="off" onChange={handleChange} />
                                                                 <i className="input-icon uil uil-user"></i>
                                                             </div>
                                                             <div className="form-group mt-2">
-                                                                <input type="email" name="email" className="form-style" value={Usre.email} placeholder="Your Email" id="logemail" autoComplete="off" onChange={handleChange} />
+                                                                <input type="email" name="email" className="form-style" value={credentials.email} placeholder="Your Email" id="logemail" autoComplete="off" onChange={handleChange} />
                                                                 <i className="input-icon uil uil-at"></i>
                                                             </div>
                                                             <div className="form-group mt-2">
-                                                                <input type="password" name="password" className="form-style" value={Usre.password} placeholder="Your Password" id="logpass" autoComplete="off" onChange={handleChange} />
+                                                                <input type="password" name="password" className="form-style" value={credentials.password} placeholder="Your Password" id="logpass" autoComplete="off" onChange={handleChange} />
                                                                 <i className="input-icon uil uil-lock-alt"></i>
                                                             </div>
                                                             <button type="submit" className="btn mt-4">Submit</button>
