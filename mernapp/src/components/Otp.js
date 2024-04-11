@@ -3,7 +3,7 @@ import './otp.css'; // Replace with your CSS file path
 import '@fortawesome/fontawesome-free/css/all.css';
 import generateOTP from './Generateotp';
 
-export default function Otp1() {
+export default function Otp() {
   const [otp, setOtp] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -40,7 +40,6 @@ export default function Otp1() {
         item.focus();
         item.value = text[index - currentIndex];
         toggleFilledClass(item);
-       
       }
     });
   };
@@ -70,7 +69,12 @@ export default function Otp1() {
     if (isAllInputFilled()) {
       const enteredOTP = Array.from(document.querySelectorAll(".otp-input")).map((input) => input.value).join('');
       if (enteredOTP === otp) {
-        alert('OTP verified successfully!');
+        // Show alert and wait for user confirmation
+        const confirmed = window.confirm('OTP verified successfully! Click OK to continue.');
+        if (confirmed) {
+          // Navigate to desired page
+          console.log('Navigate to desired page');
+        }
       } else {
         alert('Incorrect OTP. Please try again.');
       }
