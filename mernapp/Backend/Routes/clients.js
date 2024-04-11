@@ -79,4 +79,34 @@ router.patch('/patch/:id', async(req, res)=> {
         res.send('Error')
     }
 })
+
+
+
+router.post("/login", async (req, res) => {
+    let email = req.body.email;
+    try {
+        let user = await Client.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ errors: "Try logging with correct credentials" });
+        }
+
+        // Compare passwords securely using bcrypt or similar library
+        // For example:
+        // const validPassword = await bcrypt.compare(req.body.password, user.password);
+        // if (!validPassword) {
+        //     return res.status(400).json({ errors: "Try logging with correct password" });
+        // }
+
+        // Assuming plain text password comparison for now
+        if (req.body.password !== user.password) {
+            return res.status(400).json({ errors: "Try logging with correct password" });
+        }
+
+        return res.json({ success: true });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false });
+    }
+});
+
 module.exports = router;
