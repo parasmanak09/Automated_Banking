@@ -79,7 +79,7 @@
   /* ANIMATED BACKGROUND */
 
 .container {
-	background:#1F2024;
+	background:#fafafa !important;
 	top:400px;
   left:50px;
     min-width: 100vw;
