@@ -9,6 +9,7 @@ const cors = require('cors'); // Import cors package
 const port = 9015;
 
 const mongoDB=require('./db');
+
 app.use(cors({ origin : 'http://localhost:3000'})); // Use cors middleware
 // Parse JSON bodies
 app.use(express.json());
@@ -22,7 +23,7 @@ mongoose.connect(url, {
 })
     .then(() => {
         console.log('Connected to MongoDB...');
-       // mongoDB();
+        mongoDB();
     })
     .catch(err => console.error('Could not connect to MongoDB:', err));
 
@@ -31,6 +32,7 @@ const connection = mongoose.connection;
 const clientRouter = require('./Routes/clients');
 
 app.use('/api', clientRouter);
+app.use('/api', require("./Routes/display"));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");

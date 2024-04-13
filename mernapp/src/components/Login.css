@@ -2,17 +2,22 @@
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 
-.body{
+.containeroflgin{
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;
 	font-size: 15px;
 	line-height: 1.7;
-	color: #c4c3ca;
-	background-color: #1f2029;
+	color: #c4c3ca !important;
+	background-color: #1f2029 !important;
 	overflow-x: hidden;
     height:100vh;
 }
-
+.tai{
+  border: 10px;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1c1c1d !important;
+}
 p {
   font-weight: 500;
   font-size: 14px;
@@ -20,10 +25,12 @@ p {
 }
 h4 {
   font-weight: 600;
+  color: #c4c3ca !important;
 }
 h6 span{
   padding: 0 20px;
   text-transform: uppercase;
+  color: #c4c3ca !important;
   font-weight: 700;
 }
 .section{

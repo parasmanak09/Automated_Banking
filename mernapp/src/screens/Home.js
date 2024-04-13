@@ -14,14 +14,15 @@ export default function Home() {
             <div className="great" style={{ boxSizing: "border-box", position: "relative" }} >
                 <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
                 <h1 style={{ paddingBottom: "25px" }}>Dashboard</h1>
-                
-  
-                <img style={{position:'relative', top:"0", right:"70px"}} src="https://i.kinja-img.com/gawker-media/image/upload/gd8ljenaeahpn0wslmlz.jpg" class="image--cover"/>
+                <div style={{display:"flex", flexDirection:"row", justifyContent:"flex-start", marginRight:"5vw"}}>
+                <h1 style={{paddingRight:"10px"}}>Hi, Harsh</h1>
+                <img style={{}} src="https://i.kinja-img.com/gawker-media/image/upload/gd8ljenaeahpn0wslmlz.jpg" class="image--cover"/>
+                </div>
                </div>
                 <div class="tau">
                     <div class="master101" style={{ width: "55%", height: "20%" }} >
-                        <div class="row " style={{ paddingBottom: "20px", display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                            <div className="card shadow  col-sm-6 mb-3 mb-sm-0" >
+                        <div class="row " style={{ paddingBottom: "20px", display: "flex", flexDirection: "column", justifyContent:"space-around", position:'relative'}}>
+                            <div className="card shadow  col-sm-6 mb-3 mb-sm-0" style={{position:'relative', top:"0"}}>
                                 <div class="card-body">
                                     <h6 class="card-title">Total Balance</h6>
                                     <h6 class="card-subtitle mb-2 text-body-secondary">____________________</h6>
@@ -48,7 +49,7 @@ export default function Home() {
                                 </div>
 
                             </div>
-                            <div class="card shadow  text-center col-sm-6 " style={{ marginLeft: "3vw", width: '20rem' }}>
+                            <div class="card shadow  text-center col-sm-6 mb-3 mb-sm-0" style={{ marginLeft: "3vw", height:"31.6vh", width: '20rem' , position:"absolute", right:"0"}}>
                                 <div class="card-body">
                                     <h6 class="card-title">Total Vaults</h6>
                                     <h6 class="card-subtitle mb-2 text-body-secondary">____________________</h6>
@@ -61,7 +62,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div class="row" style={{ paddingTop: "20px" }}>
+                    <div class="row" style={{ paddingTop: "20px", }}>
                         <div class="card shadow  " style={{ width: "55.8%", marginLeft: "1px" }}>
                             <div class="card-header">
                                 Quick Transfer

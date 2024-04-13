@@ -26,6 +26,18 @@ const clientSchema = new mongoose.Schema({
         required: true,
         minlength: 6 // Enforces minimum password length for security
       },
+      balance: { 
+        type: Number, 
+        default: 0 
+    },
+    email_verified: { 
+        type: Boolean, 
+        default: false 
+    },
+    transactions: { 
+        type: Array, 
+        default: [] 
+    }
 });
 
 const Client = mongoose.model('Client', clientSchema);

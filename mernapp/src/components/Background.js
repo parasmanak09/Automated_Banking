@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 export default function Background() {
     return (<>
-    <div className="container">
+    <div className="container1" style={{backgroundColor:"white"}}>
                     <div className="blob-c">
                         <div className="shape-blob"></div>
                         <div className="shape-blob one"></div>

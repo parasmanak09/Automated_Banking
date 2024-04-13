@@ -7,8 +7,18 @@ const mongoDB = async () => {
         
 
         const fetched_data = await mongoose.connection.db.collection("clients");
-        const data = await fetched_data.find({}).toArray();
-        console.log(data);
+        fetched_data.find({}).toArray( (err, data) =>{
+            if(err){
+                console.log(err);
+            }
+            else{
+                global.clients = data;
+                console.log(global.clients);
+            }
+        } );
+       
+
+        
     } catch (err) {
         console.error("Error:", err);
     }

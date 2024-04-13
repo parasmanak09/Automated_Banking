@@ -2,12 +2,20 @@ import React from 'react'
 import './Navbar1.css'; // Import CSS file
 
 
+
 import '@fortawesome/fontawesome-free/css/all.css';
 import {
-    Link
+    Link, useNavigate
 } from 'react-router-dom'
 import Background from './Background';
 export default function Navbar() {
+
+
+    const navigate = useNavigate();
+    const handleLogout = () => {
+            localStorage.removeItem("authToken");
+            navigate("/Login");
+    }
     return (
         <>
             <nav className="main-menu">
@@ -57,7 +65,7 @@ export default function Navbar() {
                         </Link>
                     </li>
 
-                    <li>
+                    <li onClick={handleLogout}>
                         <Link to="#">
                             <i className="fa fa-right-from-bracket nav-icon"></i>
                             <span className="nav-text">

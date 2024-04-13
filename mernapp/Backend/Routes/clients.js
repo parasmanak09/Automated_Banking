@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Client = require('../Models/clients');
 
+const jwt = require("jsonwebtoken");
+
+const bcrypt = require("bcrypt");
+const { check } = require('express-validator');
+const jwtsecret = "IlovedChaviAndVanshika";
 // Define client-related routes here.
 router.get('/check', async (req, res) => {
     try {
@@ -51,12 +56,16 @@ function isValidPassword(password) {
         }
 
         // ... other validation checks
-        
+        const salt = await bcrypt.genSalt(10);
+        const secPassword = await bcrypt.hash(password, salt)
         // Save the client to the database
         const client = new Client({
             name: name,
             email: email,
-            password: password,
+            password: secPassword,
+            balance: 0, // Initialize balance
+            email_verified: false, // Mark email as unverified
+            transactions: [] // Initialize empty transactions array
         });
         const savedClient = await client.save();
         console.log('Saved client:', savedClient); // Log the saved client
@@ -69,21 +78,39 @@ function isValidPassword(password) {
 
 
 
-router.patch('/patch/:id', async(req, res)=> {
+router.patch('/otppatch/:id', async(req, res)=> {
     try{
         const client = await Client.findById(req.params.id);
-        client.name = req.body.name
+        client.email_verified = true;
         const a1 = await client.save()
         res.json(a1)
     }catch (err) {
         res.send('Error')
     }
-})
+});
+
+
+
+
+router.post('/updateEmailVerified/:userId', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const updatedClient = await Client.findByIdAndUpdate(userId, { email_verified: true }, { new: true });
+        res.json(updatedClient);
+    } catch (error) {
+        console.error('Error occurred while updating email verification status:', error);
+        res.status(500).json({ message: 'Failed to update email verification status' });
+    }
+});
+
+
+
 
 
 
 router.post("/login", async (req, res) => {
     let email = req.body.email;
+    
     try {
         let user = await Client.findOne({ email });
         if (!user) {
@@ -92,17 +119,23 @@ router.post("/login", async (req, res) => {
 
         // Compare passwords securely using bcrypt or similar library
         // For example:
-        // const validPassword = await bcrypt.compare(req.body.password, user.password);
-        // if (!validPassword) {
-        //     return res.status(400).json({ errors: "Try logging with correct password" });
-        // }
-
-        // Assuming plain text password comparison for now
-        if (req.body.password !== user.password) {
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+        if (!validPassword) {
             return res.status(400).json({ errors: "Try logging with correct password" });
         }
 
-        return res.json({ success: true });
+        // // Assuming plain text password comparison for now
+        // if (req.body.password !== user.password) {
+        //     return res.status(400).json({ errors: "Try logging with correct password" });
+        // }
+        
+        const data={
+            user:{
+                id:user.id
+            }
+        }
+        const authToken = jwt.sign(data, jwtsecret)
+        return res.json({ success: true, email_verified : user.email_verified, authToken:authToken });
     } catch (error) {
         console.log(error);
         res.json({ success: false });
