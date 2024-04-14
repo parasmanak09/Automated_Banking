@@ -5,7 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../components/Background.js' // IMport JS Background File
 import Background from '../components/Background.js'
 export default function Home() {
+    
+//    console.log(global.ID)
+    
     return (
+
 
         <div >
 

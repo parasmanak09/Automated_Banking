@@ -1,42 +1,76 @@
 const mongoose = require('mongoose');
 
+const transactionObject = {
+    type: {
+        type: String,
+        default: 'deposit'
+    },
+    money: {
+        type: Number,
+        default: 0
+    },
+    timestamp: {
+        type: Date,
+        default: Date.now
+    }
+};
+
+transactionObject.timestamp.getHour = function() {
+    return new Date(this.valueOf()).getHours();
+};
+
+transactionObject.timestamp.getMinute = function() {
+    return new Date(this.valueOf()).getMinutes();
+};
+
+const vaultObject = {
+    no: {
+        type: Number,
+        default: 1
+    },
+    balance: {
+        type: Number,
+        default: 0
+    },
+    days: {
+        type: Number,
+        default: 10
+    }
+};
+
 const clientSchema = new mongoose.Schema({
     name: {
-        type: String, // Corrected: Use String instead of string
-        required: true
+        type: String,
+        required: true,
+        trim: true
     },
     email: {
-        type: String, // Corrected: Use String instead of text
-        required: true,
-    },
-    name: {
         type: String,
         required: true,
-        trim: true // Optional: Remove leading/trailing whitespace
-      },
-      email: {
-        type: String,
-        required: true,
-        unique: true, // Enforces unique email addresses
+        unique: true,
         trim: true,
-        lowercase: true // Optional: Store all emails in lowercase for easier comparison
-      },
-      password: {
+        lowercase: true
+    },
+    password: {
         type: String,
         required: true,
-        minlength: 6 // Enforces minimum password length for security
-      },
-      balance: { 
-        type: Number, 
-        default: 0 
+        minlength: 6
     },
-    email_verified: { 
-        type: Boolean, 
-        default: false 
+    balance: {
+        type: Number,
+        default: 0
     },
-    transactions: { 
-        type: Array, 
-        default: [] 
+    email_verified: {
+        type: Boolean,
+        default: false
+    },
+    transactions: {
+        type: [transactionObject],
+        default: [transactionObject]
+    },
+    vault: {
+        type: [vaultObject],
+        default: [vaultObject]
     }
 });
 

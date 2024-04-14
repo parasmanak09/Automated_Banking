@@ -8,7 +8,7 @@ export default function Otp(props) {
   const [otp, setOtp] = useState('');
   const navigate = useNavigate();
   const userId = props.userId;
-
+  global.ID = userId;
   useEffect(() => {
     const generatedOTP = generateOTP();
     setOtp(generatedOTP);

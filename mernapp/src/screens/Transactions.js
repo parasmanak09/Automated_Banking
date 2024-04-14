@@ -4,7 +4,11 @@ import Background from '../components/Background.js';
 import '../components/search.css';
 
 export default function Transactions() {
+    
+    
+
     return (
+
         <>
             <Navbar />
             <Background />

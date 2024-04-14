@@ -1,113 +1,112 @@
 const express = require('express');
 const router = express.Router();
 const Client = require('../Models/clients');
-
 const jwt = require("jsonwebtoken");
-
 const bcrypt = require("bcrypt");
-const { check } = require('express-validator');
 const jwtsecret = "IlovedChaviAndVanshika";
-// Define client-related routes here.
+
+// Utility function to check if a password meets certain criteria
+// function isValidPassword(password) {
+//     // Adjust the regex pattern as needed
+//     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+//     return passwordRegex.test(password);
+// }
+
+// GET route to fetch all clients
 router.get('/check', async (req, res) => {
     try {
         const clients = await Client.find();
         res.json(clients);
-    } catch (err) {res.send('Error Found');
-        res.status(500).send('Error ' + err);
-    }
-});
-
-router.get('/check/:id', async (req, res) => {
-    try {
-        const clients = await Client.findById(req.params.id);
-        res.json(clients);
     } catch (err) {
+        console.error('Error Found:', err);
         res.status(500).send('Error ' + err);
     }
 });
 
+// GET route to fetch a specific client by ID
+router.get('/dataget/:id', async (req, res) => {
+    try {
+        const client = await Client.findById(req.params.id);
+        res.json(client);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Error ' + err);
+    }
+});
+
+// POST route to create a new client
 router.post('/create', async (req, res) => {
     try {
-        console.log('Received request:', req.body); // Log the received data
         const { name, email, password } = req.body;
-        
-// Possibly in a separate file like 'validationUtils.js'
-function isValidPassword(password) {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password);
-}
 
-
-    //     // Password validation
-    // if (!isValidPassword(password)) {
-    //     return res.status(400).json({
-    //       message: "Password must be at least 8 characters, contain one uppercase, one lowercase, one number, and one special character."
-    //           })      }
-      
-        // Check if the email ends with "@cuchd.in"
+        // Validate email format
         if (!email.endsWith('@cuchd.in')) {
-            return res.status(400).json({message:'Email must end with @cuchd.in'})
-        }
-        
-        // Check if the email already exists
-        const existingEmail = await Client.findOne({ email: email });
-        if (existingEmail) {
-            return res.status(400).json({message:"Email already exists"})
+            return res.status(400).json({ message: 'Email must end with @cuchd.in' });
         }
 
-        // ... other validation checks
+        // Validate password strength
+        // if (!isValidPassword(password)) {
+        //     return res.status(400).json({ message: 'Password must meet certain criteria' });
+        // }
+
+        // Check if the email already exists
+        const existingEmail = await Client.findOne({ email });
+        if (existingEmail) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+
+        // Hash the password
         const salt = await bcrypt.genSalt(10);
-        const secPassword = await bcrypt.hash(password, salt)
-        // Save the client to the database
-        const client = new Client({
-            name: name,
-            email: email,
-            password: secPassword,
-            balance: 0, // Initialize balance
-            email_verified: false, // Mark email as unverified
-            transactions: [] // Initialize empty transactions array
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create the new client
+        const newClient = new Client({
+            name,
+            email,
+            password: hashedPassword,
+            balance: 0,
+            email_verified: false,
+            transactions: [],
+            vault: [{ no: 1, balance: 0, days: 10 }],
+            // Add default transaction with current timestamp
+            transactions: [{ type: 'deposit', money: 0, timestamp: Date.now() }]
         });
-        const savedClient = await client.save();
-        console.log('Saved client:', savedClient); // Log the saved client
-        res.json({ response: true });
+
+        // Save the new client to the database
+        const savedClient = await newClient.save();
+        res.json(savedClient);
     } catch (err) {
-        console.error('Error occurred:', err);
-        res.status(500).json({ message: "Error Occured" });
+        console.error('Error:', err);
+        res.status(500).json({ message: 'Error Occurred' });
     }
 });
 
-
-
-router.patch('/otppatch/:id', async(req, res)=> {
-    try{
+// PATCH route to update email verification status
+router.patch('/otppatch/:id', async (req, res) => {
+    try {
         const client = await Client.findById(req.params.id);
         client.email_verified = true;
-        const a1 = await client.save()
-        res.json(a1)
-    }catch (err) {
-        res.send('Error')
+        const updatedClient = await client.save();
+        res.json(updatedClient);
+    } catch (err) {
+        console.error('Error:', err);
+        res.send('Error');
     }
 });
 
-
-
-
+// POST route to update email verification status
 router.post('/updateEmailVerified/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
         const updatedClient = await Client.findByIdAndUpdate(userId, { email_verified: true }, { new: true });
         res.json(updatedClient);
     } catch (error) {
-        console.error('Error occurred while updating email verification status:', error);
+        console.error('Error:', error);
         res.status(500).json({ message: 'Failed to update email verification status' });
     }
 });
 
-
-
-
-
-
+// POST route to authenticate and log in a client
 router.post("/login", async (req, res) => {
     let email = req.body.email;
     

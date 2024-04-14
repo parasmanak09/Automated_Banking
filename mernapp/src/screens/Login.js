@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Otp from './Otp';
+import Redirector from './Redirector';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -13,11 +14,10 @@ export default function Login() {
     const [userId, setUserId] = useState(null);
     const [json, setJson] = useState(null); // Define json state
 
-
     useEffect(() => {
-        console.log(userId); // Log the updated userId after each render
-    }, [userId]);
-
+       // console.log(userId)
+    }, [userId ]);
+   
     const handleLogin = async (event) => {
         event.preventDefault();
 
@@ -37,16 +37,19 @@ export default function Login() {
                 alert("Enter Valid Credentials");
             } else {
                 const decodedToken = jwtDecode(json.authToken);
-                console.log(decodedToken)
+                // console.log(decodedToken)
                     setUserId(decodedToken.user.id);
-                console.log(decodedToken.user.id)
+                // console.log(decodedToken.user.id)
+                // console.log(json)
                 alert("Login Successful");
+                
                 localStorage.setItem("authToken", json.authToken);
                 setIsLoggedIn(true);
                 if (!json.email_verified) {
-                    
+                    console.log("email not verified")
                 } else {
-                    navigate('/Home');
+                    console.log("email verified")
+                    // navigate('/Home');
                 }
             }
         } catch (error) {
@@ -90,11 +93,9 @@ export default function Login() {
             ...prevState,
             [name]: value
         }));
-    };
+    };  
 
-    if (isLoggedIn && json && json.email_verified) { // Check if json is not null
-        navigate('/Home');
-    }
+ 
 
     return (
         <>
@@ -163,7 +164,16 @@ export default function Login() {
 
             {isLoggedIn && !json.email_verified && userId && (
   React.createElement(Otp, { userId: userId })
+ 
+  
 )}
+
+
+{isLoggedIn && json && json.email_verified && userId &&( // Check if json is not null
+        React.createElement(Redirector, {userId: userId})
+        // navigate('/Home');
+
+    )}
 
             
         </>

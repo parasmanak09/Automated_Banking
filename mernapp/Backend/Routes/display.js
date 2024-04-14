@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 
-router.post("/Transactions", (req,res) => {
+router.get("/dataget", (req,res) => {
     try{
+
 
     }
     catch (err){
