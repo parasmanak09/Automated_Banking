@@ -188,7 +188,7 @@ export default function Home() {
                             </div>
                             <div class="card-body" >
                                 {latestTransactions.map(transaction => (
-                                  <div key={transaction._id} className="transactions" style={{background: "rgba(255, 255, 255, 0.192)", backdropFilter:"blur(10px)", borderRadius:"15px", border: "1px solid rgba(221, 221, 221, 0.568)"
+                                  <div key={transaction._id} className="transactions" style={{marginTop: "-15px",background: "rgba(255, 255, 255, 0.192)", backdropFilter:"blur(10px)", borderRadius:"15px", border: "1px solid rgba(221, 221, 221, 0.568)"
                                   }}>
                                     <p style={{marginBottom:"-6px", textAlign: "centre"}}>  __________________________________________________________ </p>
                                   <div style={{ marginTop: "4px", paddingLeft: "14px" }}>

@@ -153,16 +153,21 @@ router.post("/login", async (req, res) => {
 });
 
 
-
-// POST route to handle transactions
+// post request for the transaction
 router.post('/transaction', async (req, res) => {
     try {
-        const { from, to, money } = req.body;
+        const { from, to, money, password } = req.body;
 
         // Find the sender by ID
         const sender = await Client.findById(from);
         if (!sender) {
             return res.status(404).json({ message: 'Sender not found' });
+        }
+        
+        // Compare hashed password
+        const passwordMatch = await bcrypt.compare(password, sender.password);
+        if (!passwordMatch) {
+            return res.status(401).json({ message: 'Incorrect password' });
         }
 
         // Check if sender has enough balance
@@ -185,9 +190,23 @@ router.post('/transaction', async (req, res) => {
         // Generate transaction ID
         const transaction_id = `${sender.email.split('@')[0]}${Math.floor(100000 + Math.random() * 900000)}${to.split('@')[0]}`;
 
-        // Create transaction objects
-        const senderTransaction = { transaction_id: transaction_id, type: 'withdraw', money: money, timestamp: new Date() };
-        const receiverTransaction = { transaction_id: transaction_id, type: 'deposit', money: money, timestamp: new Date() };
+        // Create transaction objects with 'from' and 'to' fields
+        const senderTransaction = { 
+            transaction_id: transaction_id, 
+            type: 'withdraw', 
+            money: money, 
+            from: sender.email, // Include sender's email
+            to: receiver.email, // Include receiver's email
+            timestamp: new Date() 
+        };
+        const receiverTransaction = { 
+            transaction_id: transaction_id, 
+            type: 'deposit', 
+            money: money, 
+            from: sender.email, // Include sender's email
+            to: receiver.email, // Include receiver's email
+            timestamp: new Date() 
+        };
 
         // Add transactions to sender and receiver
         sender.transactions.push(senderTransaction);
@@ -200,7 +219,7 @@ router.post('/transaction', async (req, res) => {
         res.json({ message: 'Transaction successful' });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ message: 'Failed to process transaction' });
+        res.json({ message: 'Failed to process transaction', error:error });
     }
 });
 

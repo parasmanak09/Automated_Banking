@@ -7,6 +7,7 @@
   height: 95px !important;
   border-radius: 100rem !important; 
   background-color: black !important;
+  margin-left: 12px !important;
 }
 
 .transcations{
@@ -17,7 +18,9 @@
 .chutad-yadav {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  padding: auto;
+ 
+  width:80%;
 }
 
 .image--cover {
