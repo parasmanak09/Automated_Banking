@@ -60,7 +60,7 @@ export default function Login() {
 
     const handleSignup = async (event) => {
         event.preventDefault();
-
+    
         try {
             const response = await fetch("http://localhost:9015/api/create", {
                 method: "POST",
@@ -69,14 +69,12 @@ export default function Login() {
                 },
                 body: JSON.stringify(credentials)
             });
-
+    
             if (!response.ok) {
                 const text = await response.text();
                 console.error("Error Response:", text);
-                const data = await response.json();
-                if (data.message) {
-                    alert(data.message);
-                }
+                // No need to call response.json() here
+                alert(text); // Display the error message
             } else {
                 alert("User Created");
                 setCredentials({ email: "", password: "" });
@@ -86,6 +84,7 @@ export default function Login() {
             alert('Sorry, an error occurred. Please try again.');
         }
     };
+    
 
     const handleChange = (event) => {
         const { name, value } = event.target;

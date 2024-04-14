@@ -13,6 +13,7 @@ export default function Home() {
     const [totalBalance, setTotalBalance] = useState(0);
     const [totalIncome, setTotalIncome] = useState(0);
     const [totalExpense, setTotalExpense] = useState(0);
+    const [latestTransactions, setLatestTransactions] = useState([]);
 
     // Check if global ID is undefined and decode the JWT token
     if (global.ID === undefined) {
@@ -34,10 +35,10 @@ export default function Home() {
             // Check transaction type
             if (transaction.type === "deposit") {
                 // If deposit, add amount to totalIncome
-                income += transaction.amount;
+                income += transaction.money;
             } else if (transaction.type === "withdraw") {
                 // If withdraw, add amount to totalExpense
-                expense += transaction.amount;
+                expense += transaction.money;
             }
         });
 
@@ -46,6 +47,17 @@ export default function Home() {
         setTotalExpense(expense);
     };
 
+    // Function to get latest 5 transactions
+    const getLatestTransactions = () => {
+        if (userData) {
+            // Sort transactions based on timestamp in descending order
+            const sortedTransactions = userData.transactions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            // Select latest 5 transactions
+            const latest5 = sortedTransactions.slice(0, 5);
+            // Set latest transactions state
+            setLatestTransactions(latest5);
+        }
+    };
 
     useEffect(() => {
         const loadData = async () => {
@@ -88,16 +100,15 @@ export default function Home() {
     useEffect(() => {
         if (userData) {
             calculateIncomeAndExpense();
+            getLatestTransactions();
         }
     }, [userData]);
 
     return (
-
-
         <div >
-
             <Navbar />
-            <Background />{userData && (
+            <Background />
+            {userData && (
                 <div className="great" style={{ boxSizing: "border-box", position: "relative" }} >
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <h1 style={{ paddingBottom: "25px" }}>Dashboard</h1>
@@ -128,7 +139,6 @@ export default function Home() {
                                                     <div class="card-body">
                                                         <p class="card-title" >Expense</p>
                                                         <p>INR {totalExpense} </p>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,7 +155,6 @@ export default function Home() {
                                         <p style={{ paddingTop: "15px", marginBottom: "-5px" }}>Vault Balance</p>
                                         <h6 class="card-subtitle mb-2 text-body-secondary">____________________</h6>
                                         <h4 class="card-text" >INR {totalBalance ? totalBalance : 0} </h4>
-
                                     </div>
                                 </div>
                             </div>
@@ -174,22 +183,37 @@ export default function Home() {
                     <div class="tau" style={{ width: "32%", float: "right", marginRight: "70px", height: "70% !Important", position: "absolute", top: "112px", right: "0" }}>
                         <div class="card shadow ">
                             <div class="card-body text-truncate" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                                <h2 class="card-title">Transactions</h2>
+                                <h2 class="card-title">Latest Transactions</h2>
                                 <p>view all</p>
                             </div>
-                            <div class="card-body" style={{ marginTop: "-25px", width: "50%", display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-
-                                <p>All</p>
-                                <p>Expenses</p>
-                                <p>Income</p>
-
+                            <div class="card-body" >
+                                {latestTransactions.map(transaction => (
+                                  <div key={transaction._id} className="transactions" style={{background: "rgba(255, 255, 255, 0.192)", backdropFilter:"blur(10px)", borderRadius:"15px", border: "1px solid rgba(221, 221, 221, 0.568)"
+                                  }}>
+                                    <p style={{marginBottom:"-6px", textAlign: "centre"}}>  __________________________________________________________ </p>
+                                  <div style={{ marginTop: "4px", paddingLeft: "14px" }}>
+                                      <div class="toppermaster" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                                          <p style={{ marginBottom: "-2px", fontWeight: "bold" }}>Id: {transaction.transaction_id}</p>
+                                          <div class="moneylane" style={{ width: "30%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                                              <p style={{ color: transaction.type === 'deposit' ? 'green' : (transaction.type === 'withdraw' ? 'red' : 'inherit'), fontWeight: "bold" }}>
+                                                  {transaction.type.toUpperCase()}
+                                              </p>
+                                              <p style={{ color: transaction.type === 'deposit' ? 'green' : (transaction.type === 'withdraw' ? 'red' : 'inherit'), marginTop: "-20px", fontWeight: "bold" }}>
+                                                  {transaction.type === 'withdraw' ? '-' : '+'} INR {Math.abs(transaction.money)}
+                                              </p>
+                                          </div>
+                                      </div>
+                                      <p style={{ marginTop: "-40px", fontWeight: "bold" }}>{transaction.type === 'deposit' ? 'From' : 'To'}: {transaction.type === 'deposit' ? transaction.from : transaction.to}</p>
+                                      <p style={{ textAlign: "right", marginRight: "14px", marginTop:"-18px" }}>{new Date(transaction.timestamp).toLocaleString()}</p>
+                                  </div>
+                              </div>
+                              
+                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
             )}
         </div>
-
-
     )
 }

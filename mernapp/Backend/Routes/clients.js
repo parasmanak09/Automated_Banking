@@ -37,17 +37,12 @@ router.get('/dataget/:id', async (req, res) => {
 // POST route to create a new client
 router.post('/create', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, transactionId } = req.body; // Assuming transactionId is passed from the client
 
         // Validate email format
         if (!email.endsWith('@cuchd.in')) {
             return res.status(400).json({ message: 'Email must end with @cuchd.in' });
         }
-
-        // Validate password strength
-        // if (!isValidPassword(password)) {
-        //     return res.status(400).json({ message: 'Password must meet certain criteria' });
-        // }
 
         // Check if the email already exists
         const existingEmail = await Client.findOne({ email });
@@ -67,19 +62,35 @@ router.post('/create', async (req, res) => {
             balance: 0,
             email_verified: false,
             transactions: [],
-            vault: [{ no: 1, balance: 0, days: 10 }],
-            // Add default transaction with current timestamp
-            transactions: [{ type: 'deposit', money: 0, timestamp: Date.now() }]
+            vault: [{ no: 1, balance: 0, days: 10 }]
         });
 
         // Save the new client to the database
         const savedClient = await newClient.save();
+
+        // Create a default transaction object using the provided transaction ID
+        const transaction = {
+            
+            type: 'deposit',
+            from: 'system', // Indicate it's from the system
+            to: savedClient.name, // Set the client's ID as the recipient
+            money: 0, // Initial deposit amount if needed
+            timestamp: Date.now()
+        };
+
+        // Add the default transaction to the new client
+        savedClient.transactions.push(transaction);
+
+        // Save the updated client with the default transaction
+        await savedClient.save();
+
         res.json(savedClient);
     } catch (err) {
         console.error('Error:', err);
         res.status(500).json({ message: 'Error Occurred' });
     }
 });
+
 
 // PATCH route to update email verification status
 router.patch('/otppatch/:id', async (req, res) => {
@@ -140,5 +151,58 @@ router.post("/login", async (req, res) => {
         res.json({ success: false });
     }
 });
+
+
+
+// POST route to handle transactions
+router.post('/transaction', async (req, res) => {
+    try {
+        const { from, to, money } = req.body;
+
+        // Find the sender by ID
+        const sender = await Client.findById(from);
+        if (!sender) {
+            return res.status(404).json({ message: 'Sender not found' });
+        }
+
+        // Check if sender has enough balance
+        if (sender.balance < money) {
+            return res.status(400).json({ message: 'Insufficient balance' });
+        }
+
+        // Find the receiver by email
+        const receiver = await Client.findOne({ email: to });
+        if (!receiver) {
+            return res.status(404).json({ message: 'Receiver not found' });
+        }
+
+        // Update sender's balance (withdraw)
+        sender.balance -= money;
+
+        // Update receiver's balance (deposit)
+        receiver.balance += money;
+
+        // Generate transaction ID
+        const transaction_id = `${sender.email.split('@')[0]}${Math.floor(100000 + Math.random() * 900000)}${to.split('@')[0]}`;
+
+        // Create transaction objects
+        const senderTransaction = { transaction_id: transaction_id, type: 'withdraw', money: money, timestamp: new Date() };
+        const receiverTransaction = { transaction_id: transaction_id, type: 'deposit', money: money, timestamp: new Date() };
+
+        // Add transactions to sender and receiver
+        sender.transactions.push(senderTransaction);
+        receiver.transactions.push(receiverTransaction);
+
+        // Save updated sender and receiver
+        await sender.save();
+        await receiver.save();
+
+        res.json({ message: 'Transaction successful' });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'Failed to process transaction' });
+    }
+});
+
 
 module.exports = router;

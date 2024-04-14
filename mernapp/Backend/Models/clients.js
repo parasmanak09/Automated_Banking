@@ -1,26 +1,39 @@
 const mongoose = require('mongoose');
 
 const transactionObject = {
-    type: {
-        type: String,
-        default: 'deposit'
-    },
-    money: {
-        type: Number,
-        default: 0
-    },
-    timestamp: {
-        type: Date,
-        default: Date.now
-    }
+  transaction_id: {
+      type: String,
+      default: 'admin00000000admin'
+  },
+  type: {
+      type: String,
+      default: 'deposit'
+  },
+  money: {
+      type: Number,
+      default: 0
+  },
+  timestamp: {
+      type: Date,
+      default: Date.now
+  },
+  from: {
+      type: String,
+      required: true
+  },
+  to: {
+      type: String,
+      required: true
+  }
 };
 
+
 transactionObject.timestamp.getHour = function() {
-    return new Date(this.valueOf()).getHours();
+  return new Date(this.valueOf()).getHours();
 };
 
 transactionObject.timestamp.getMinute = function() {
-    return new Date(this.valueOf()).getMinutes();
+  return new Date(this.valueOf()).getMinutes();
 };
 
 const vaultObject = {

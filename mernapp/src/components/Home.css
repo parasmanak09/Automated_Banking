@@ -9,6 +9,11 @@
   background-color: black !important;
 }
 
+.transcations{
+  height:100px;
+  border: 2px solid;
+}
+
 .chutad-yadav {
   display: flex;
   flex-direction: row;
