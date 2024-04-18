@@ -155,30 +155,36 @@ export default function Transfer() {
                 </div>
                 <h2 style={{ marginLeft: "50px", marginTop: "1rem" }}>Add Money</h2>
                 <div style={{ margin: "0 2vw 0 0px", border: "3px solid rgba(43, 43, 43, 0.568)", borderRadius: "0.5rem", marginTop: "10px", display: "flex", flexDirection: "row", justifyContent: "space-between"  }}>
-                    <div style={{ marginRight: "7vw" }}>
-
+                    <div style={{ marginRight: "7vw", paddingTop: "1vh", paddingLeft:"1vw", display:"flex", flexDirection:"row", justifyContent:"space-around" }}>
+                        <div><div style={{width:"2vw"}}></div>
                         <stripe-buy-button
                             buy-button-id="buy_btn_1P6RlLSDTVhKHFVlSoFWbbAW"
                             publishable-key="pk_test_51OdI5tSDTVhKHFVl855VuRwZwMc4qdlgfXJp21srLwYK2QMPOGS6IBTLYBziuxdCts9nsrgTmm77Ey9kKSErl6hC00XR4cWxnJ"
                         >
-
+                        
                         </stripe-buy-button>
+                        </div><div style={{width:"2vw"}}></div>
+                        <div>
                         <stripe-buy-button
                             buy-button-id="buy_btn_1P6TuBSDTVhKHFVlp6I9JnH2"
                             publishable-key="pk_test_51OdI5tSDTVhKHFVl855VuRwZwMc4qdlgfXJp21srLwYK2QMPOGS6IBTLYBziuxdCts9nsrgTmm77Ey9kKSErl6hC00XR4cWxnJ"
                         >
+                           
                         </stripe-buy-button>
+                        </div><div style={{width:"2vw"}}></div>
+                        <div>
                         <stripe-buy-button
                             buy-button-id="buy_btn_1P6TsYSDTVhKHFVl2PAG1LzU"
                             publishable-key="pk_test_51OdI5tSDTVhKHFVl855VuRwZwMc4qdlgfXJp21srLwYK2QMPOGS6IBTLYBziuxdCts9nsrgTmm77Ey9kKSErl6hC00XR4cWxnJ"
                         >
                         </stripe-buy-button>
-
+                        </div><dv></dv>
+                        </div>
                     </div>
 
                 </div>
             </div>
-            </div>
+            
         </>
     );
 }
