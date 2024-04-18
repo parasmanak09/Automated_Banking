@@ -38,4 +38,7 @@
     }
     
 
-      
+    .tau{
+        position: relative;
+        z-index: 400;
+    }

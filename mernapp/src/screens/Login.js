@@ -162,7 +162,7 @@ export default function Login() {
             )}
 
             {isLoggedIn && !json.email_verified && userId && (
-  React.createElement(Otp, { userId: userId })
+  React.createElement(Otp, { userId: userId, email:json.email })
  
   
 )}

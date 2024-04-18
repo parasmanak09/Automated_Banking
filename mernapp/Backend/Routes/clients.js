@@ -223,5 +223,32 @@ router.post('/transaction', async (req, res) => {
     }
 });
 
+router.post('/send-verification-email', (req, res) => {
+    const { userId, email } = req.body;
+  
+    const transporter = nodemailer.createTransport({
+      service: 'smtp.elasticemail.com', // Or your email provider
+      auth: {
+        user: 'harshbelarkha@proton.me',
+        pass: '408CA25D72188F712BC0FA6F58192AA704BE'
+      }
+    });
+  
+    const mailOptions = {
+      from: 'harshbelarkha@proton.me',
+      to: email, 
+      subject: 'Your Email Verification',
+      text: `Your OTP: ${generateOTP()}` // Generate OTP here
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        res.status(500).json({ error: 'Email sending failed' });
+      } else {
+        res.json({ message: 'Verification email sent' });
+      }
+    });
+  });
+
 
 module.exports = router;

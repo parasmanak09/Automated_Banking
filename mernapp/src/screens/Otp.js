@@ -3,6 +3,7 @@ import '../components/otp.css'; // Replace with your CSS file path
 import '@fortawesome/fontawesome-free/css/all.css';
 import generateOTP from '../components/Generateotp';
 import { useNavigate } from 'react-router-dom';
+import './smtp.js';
 
 export default function Otp(props) {
   const [otp, setOtp] = useState('');
@@ -12,6 +13,7 @@ export default function Otp(props) {
   useEffect(() => {
     const generatedOTP = generateOTP();
     setOtp(generatedOTP);
+    
   }, []);
 
   const isAllInputFilled = () => {

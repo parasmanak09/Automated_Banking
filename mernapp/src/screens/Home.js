@@ -66,6 +66,8 @@ export default function Home() {
                 headers: {
                     'Content-Type': "application/json",
                 },
+
+
             });
 
             const responseJson = await response.json();
@@ -124,13 +126,13 @@ export default function Home() {
                                     <div class="card-body">
                                         <h6 class="card-title">Total Balance</h6>
                                         <h6 class="card-subtitle mb-2 text-body-secondary">____________________</h6>
-                                        <h4 class="card-text">INR {userData.balance} </h4>
+                                        <h4 class="card-text">₹ {userData.balance} </h4>
                                         <div class="row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <div class="card" style={{ border: "none" }}>
                                                     <div class="card-body">
                                                         <p class="card-title">Income</p>
-                                                        <p>INR {totalIncome} </p>
+                                                        <p>₹ {totalIncome} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -138,7 +140,7 @@ export default function Home() {
                                                 <div class="card" style={{ border: "none" }}>
                                                     <div class="card-body">
                                                         <p class="card-title" >Expense</p>
-                                                        <p>INR {totalExpense} </p>
+                                                        <p>₹ {totalExpense} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,7 +156,7 @@ export default function Home() {
 
                                         <p style={{ paddingTop: "15px", marginBottom: "-5px" }}>Vault Balance</p>
                                         <h6 class="card-subtitle mb-2 text-body-secondary">____________________</h6>
-                                        <h4 class="card-text" >INR {totalBalance ? totalBalance : 0} </h4>
+                                        <h4 class="card-text" >₹ {totalBalance ? totalBalance : 0} </h4>
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +201,7 @@ export default function Home() {
                                                   {transaction.type.toUpperCase()}
                                               </p>
                                               <p style={{ color: transaction.type === 'deposit' ? 'green' : (transaction.type === 'withdraw' ? 'red' : 'inherit'), marginTop: "-20px", fontWeight: "bold" }}>
-                                                  {transaction.type === 'withdraw' ? '-' : '+'} INR {Math.abs(transaction.money)}
+                                                  {transaction.type === 'withdraw' ? '-' : '+'} ₹ {Math.abs(transaction.money)}
                                               </p>
                                           </div>
                                       </div>

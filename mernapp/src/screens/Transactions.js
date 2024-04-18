@@ -17,6 +17,7 @@ const filterWithdrawals = (transactionsData) => {
 export default function Transactions() {
     const [transactionsData, setTransactionsData] = useState([]);
     const [userData, setUserData] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState('All'); // Add state for selected category
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,11 +56,52 @@ export default function Transactions() {
         fetchData();
     }, []);
 
+    // Function to handle category selection
+    const handleCategorySelect = (category) => {
+        console.log(category)
+        setSelectedCategory(category);
+    };
+
+    useEffect(() => {
+        // Function to hide/show transactions based on category selection
+        const handleHideTransactions = () => {
+            const allTransactions = document.querySelectorAll('.transaction-conatiner');
+            const depositTransactions = document.querySelectorAll('.deposit-transaction');
+            const withdrawTransactions = document.querySelectorAll('.withdraw-transaction');
+
+            if (selectedCategory === 'All') {
+                allTransactions.forEach(transaction => (transaction.style.display = ''));
+                depositTransactions.forEach(transaction => (transaction.style.display = ''));
+                withdrawTransactions.forEach(transaction => (transaction.style.display = ''));
+            } else if (selectedCategory === 'Income') {
+                allTransactions.forEach(transaction => (transaction.style.display = 'none'));
+                depositTransactions.forEach(transaction => (transaction.style.display = ''));
+                withdrawTransactions.forEach(transaction => (transaction.style.display = 'none'));
+            } else if (selectedCategory === 'Expense') {
+                allTransactions.forEach(transaction => (transaction.style.display = 'none'));
+                depositTransactions.forEach(transaction => (transaction.style.display = 'none'));
+                withdrawTransactions.forEach(transaction => (transaction.style.display = ''));
+            }
+        };
+
+        handleHideTransactions();
+    }, [selectedCategory]);
+ const paper = {
+    marginLeft:"20px",
+    transition: "background-color 0.3s", // Smooth transition for hover effect
+    // Define default background color
+    backgroundColor: "#fff", 
+ }
+ const hoverStyles = {
+    backgroundColor: "lightblue", // Background color on hover
+};
+
+ 
     return (
         <>
             <Navbar />
             <Background />
-            <div className="tau" style={{ width: "80vw", height: "100vh", marginLeft: "200px", paddingTop: "50px" }}>
+            <div className="tau" style={{ width: "80vw", height: "100vh", marginLeft: "200px", paddingTop: "50px" , position:"relative"}}>
                 <div className="card shadow ">
                     <div className="card-body text-truncate" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <h2 className="card-title">Transactions</h2>
@@ -73,91 +115,40 @@ export default function Transactions() {
                         </div>
                     </div>
 
-                    <div className="card-body" style={{ marginTop: "-25px", width: "90%", display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                        <p>All</p>
-                        <p style={{ marginLeft: "300px" }}>Expenses</p>
-                        <p>Income</p>
+                    <div className="card-body" style={{ marginTop: "-25px", width: "40%", display:"flex", flexDirection:"row", justifyContent:"space-evenly" }}>
+                        {/* Category links */}
+                        <p   onClick={() => handleCategorySelect('All')} className={selectedCategory === 'All' ? 'selected-category' : ''}>All</p>
+                        <p  onClick={() => handleCategorySelect('Income')} className={selectedCategory === 'Income' ? 'selected-category' : ''} >Income</p>
+                        <p  onClick={() => handleCategorySelect('Expense')} className={selectedCategory === 'Expense' ? 'selected-category' : ''}>Expense</p>
                     </div>
 
-                    <div style={{display:"flex", flexDirection:"row"}}>
-                        <div className="transactions-container" style={{ width: "25vw", height: "80vh" }}>
-
-                            {transactionsData
-                                // Sort transactions in descending order based on timestamp
-                                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-                                // Map over the sorted transactions and render each transaction
-                                .map(transaction => (
-                                    <div key={transaction._id} className="transactions" style={{ marginTop: "-15px", background: "rgba(255, 255, 255, 0.192)", backdropFilter: "blur(10px)", borderRadius: "15px", border: "1px solid rgba(221, 221, 221, 0.568)" }}>
-                                        {/* Render transaction details */}
-                                        <p style={{ marginBottom: "-6px", textAlign: "centre" }}>  __________________________________________________ </p>
-                                        <div style={{ marginTop: "4px", paddingLeft: "14px" }}>
-                                            <div className="toppermaster" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                                                <p style={{ marginBottom: "-2px", fontWeight: "bold" }}>Id: {transaction.transaction_id}</p>
-                                                <div className="moneylane" style={{ width: "30%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                    <p style={{ color: transaction.type === 'deposit' ? 'green' : (transaction.type === 'withdraw' ? 'red' : 'inherit'), fontWeight: "bold" }}>
-                                                        {transaction.type.toUpperCase()}
-                                                    </p>
-                                                    <p style={{ color: transaction.type === 'deposit' ? 'green' : (transaction.type === 'withdraw' ? 'red' : 'inherit'), marginTop: "-20px", fontWeight: "bold" }}>
-                                                        {transaction.type === 'withdraw' ? '-' : '+'} INR {Math.abs(transaction.money)}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <p style={{ marginTop: "-40px", fontWeight: "bold" }}>{transaction.type === 'deposit' ? 'From' : 'To'}: {transaction.type === 'deposit' ? transaction.from : transaction.to}</p>
-                                            <p style={{ textAlign: "right", marginRight: "14px", marginTop: "-18px" }}>{new Date(transaction.timestamp).toLocaleString()}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                        </div>
-
-                        <div className="deposit-container" style={{ width: "25vw", height: "80vh" }}>
-                            {/* Render deposits */}
-                            {filterDeposits(transactionsData).map(deposit => (
-                                <div key={deposit._id} className="transactions" style={{ marginTop: "-15px", background: "rgba(255, 255, 255, 0.192)", backdropFilter: "blur(10px)", borderRadius: "15px", border: "1px solid rgba(221, 221, 221, 0.568)" }}>
-                                    {/* Render deposit transaction */}
-                                    <p style={{ marginBottom: "-6px", textAlign: "centre" }}>  __________________________________________________ </p>
+                    {/* Render transactions based on selected category */}
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                        <div className="transactions-container" style={{ width: "40vw", height: "80vh", marginLeft:"20vw"}}>
+                            {transactionsData.map(transaction => (
+                                <div key={transaction._id} className={`transaction ${transaction.type === 'deposit' ? 'deposit-transaction' : 'withdraw-transaction'}`} style={{ display: '' }}>
+                                    {/* Render transaction details */}
+                                    <p style={{ marginBottom: "-6px", textAlign: "center" }}> ________________________________________________________________________________ </p>
                                     <div style={{ marginTop: "4px", paddingLeft: "14px" }}>
                                         <div className="toppermaster" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                                            <p style={{ marginBottom: "-2px", fontWeight: "bold" }}>Id: {deposit.transaction_id}</p>
+                                            <p style={{ marginBottom: "-2px", fontWeight: "bold" }}>Id: {transaction.transaction_id}</p>
                                             <div className="moneylane" style={{ width: "30%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <p style={{ color: deposit.type === 'deposit' ? 'green' : (deposit.type === 'withdraw' ? 'red' : 'inherit'), fontWeight: "bold" }}>
-                                                    {deposit.type.toUpperCase()}
+                                                <p style={{ color: transaction.type === 'deposit' ? 'green' : (transaction.type === 'withdraw' ? 'red' : 'inherit'), fontWeight: "bold" }}>
+                                                    {transaction.type.toUpperCase()}
                                                 </p>
-                                                <p style={{ color: deposit.type === 'deposit' ? 'green' : (deposit.type === 'withdraw' ? 'red' : 'inherit'), marginTop: "-20px", fontWeight: "bold" }}>
-                                                    {deposit.type === 'withdraw' ? '-' : '+'} INR {Math.abs(deposit.money)}
+                                                <p style={{ color: transaction.type === 'deposit' ? 'green' : (transaction.type === 'withdraw' ? 'red' : 'inherit'), marginTop: "-20px", fontWeight: "bold" }}>
+                                                    {transaction.type === 'withdraw' ? '-' : '+'} ₹ {Math.abs(transaction.money)}
                                                 </p>
                                             </div>
                                         </div>
-                                        <p style={{ marginTop: "-40px", fontWeight: "bold" }}>{deposit.type === 'deposit' ? 'From' : 'To'}: {deposit.type === 'deposit' ? deposit.from : deposit.to}</p>
-                                        <p style={{ textAlign: "right", marginRight: "14px", marginTop: "-18px" }}>{new Date(deposit.timestamp).toLocaleString()}</p>
+                                        <p style={{ marginTop: "-40px", fontWeight: "bold" }}>{transaction.type === 'deposit' ? 'From' : 'To'}: {transaction.type === 'deposit' ? transaction.from : transaction.to}</p>
+                                        <p style={{ textAlign: "right", marginRight: "14px", marginTop: "-18px" }}>{new Date(transaction.timestamp).toLocaleString()}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="withdraw-container" style={{ width: "25vw", height: "80vh" }}>
-                            {/* Render withdrawals */}
-                            {filterWithdrawals(transactionsData).map(withdrawal => (
-                                <div key={withdrawal._id} className="transactions" style={{ marginTop: "-15px", background: "rgba(255, 255, 255, 0.192)", backdropFilter: "blur(10px)", borderRadius: "15px", border: "1px solid rgba(221, 221, 221, 0.568)" }}>
-                                    {/* Render withdrawal transaction */}
-                                    <p style={{ marginBottom: "-6px", textAlign: "centre" }}>  __________________________________________________ </p>
-                                    <div style={{ marginTop: "4px", paddingLeft: "14px" }}>
-                                        <div className="toppermaster" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                                            <p style={{ marginBottom: "-2px", fontWeight: "bold" }}>Id: {withdrawal.transaction_id}</p>
-                                            <div className="moneylane" style={{ width: "30%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <p style={{ color: withdrawal.type === 'deposit' ? 'green' : (withdrawal.type === 'withdraw' ? 'red' : 'inherit'), fontWeight: "bold" }}>
-                                                    {withdrawal.type.toUpperCase()}
-                                                </p>
-                                                <p style={{ color: withdrawal.type === 'deposit' ? 'green' : (withdrawal.type === 'withdraw' ? 'red' : 'inherit'), marginTop: "-20px", fontWeight: "bold" }}>
-                                                    {withdrawal.type === 'withdraw' ? '-' : '+'} INR {Math.abs(withdrawal.money)}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <p style={{ marginTop: "-40px", fontWeight: "bold" }}>{withdrawal.type === 'deposit' ? 'From' : 'To'}: {withdrawal.type === 'deposit' ? withdrawal.from : withdrawal.to}</p>
-                                        <p style={{ textAlign: "right", marginRight: "14px", marginTop: "-18px" }}>{new Date(withdrawal.timestamp).toLocaleString()}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                      
                     </div>
                 </div>
             </div>
