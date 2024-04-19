@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 //const url = 'mongodb+srv://harshmail:harsh@onlinesbi.tyo30fj.mongodb.net/'; // Cluster --> OnlineSBII
-//const url = 'mongodb+srv://harshmail:harsh@cluster0.udepd.mongodb.net/'; // Cluster ---> Cluster0
-const url = 'mongodb://localhost:27017/';
+const url = 'mongodb+srv://harshmail:harsh@cluster0.udepd.mongodb.net/'; // Cluster ---> Cluster0
+//const url = 'mongodb://localhost:27017/';
 const app = express();
 const cors = require('cors'); // Import cors package
 const port = 9015;
